@@ -12,7 +12,6 @@ jobs:
   zap_scan:
     # If you are self-hosting, change the following `runs-on` value: 
     runs-on: ubuntu-latest
-    container: ubuntu:latest
 
     # Skip any PR created by dependabot to avoid permission issues:
     if: (github.actor != 'dependabot[bot]')
