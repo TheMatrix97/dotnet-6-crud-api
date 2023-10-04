@@ -31,7 +31,7 @@ jobs:
           image-ref: 'docker.io/test/api:${{ github.sha }}'
           format: 'table'
           exit-code: '1'
-          ignore-unfixed: true
+          #ignore-unfixed: true
           vuln-type: 'os,library'
           #severity: 'CRITICAL,HIGH'
           list-all-pkgs: true
