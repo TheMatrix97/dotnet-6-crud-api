@@ -16,29 +16,19 @@ jobs:
     # Skip any PR created by dependabot to avoid permission issues:
     if: (github.actor != 'dependabot[bot]')
 
+    services:
+      api:
+        image: markittos1/dotnet_crud_api:latest
+        ports:
+         - 4000:4000
+   
     steps:
       # Fetch project source with GitHub Actions Checkout.
       - uses: actions/checkout@v3
       # run the Zap scan api with docker
-      - name: Install docker
-        run: |
-            sudo apt update
-            sudo apt install apt-transport-https ca-certificates curl software-properties-common
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-            sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && sudo apt update
-            apt-cache policy docker-ce
-            sudo apt install docker-ce
-      # Build docker image
-      - name: Build Docker image
-        run: |
-            docker build -t api:latest .
-      - name: Run API
-        run: |
-            docker run -d -p 127.0.0.1:4000:4000 testapi:latest
-            sleep 10
       - name: ZAP Scan
         uses: zaproxy/action-api-scan@v0.5.0
         with:
-          target: 'http://127.0.0.1/swagger/v1/swagger.json'
+          target: 'http://api:4000/swagger/v1/swagger.json'
           format: openapi
       
