@@ -12,6 +12,7 @@ jobs:
   zap_scan:
     # If you are self-hosting, change the following `runs-on` value: 
     runs-on: ubuntu-latest
+    container: ubuntu:latest
 
     # Skip any PR created by dependabot to avoid permission issues:
     if: (github.actor != 'dependabot[bot]')
@@ -29,6 +30,6 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-api-scan@v0.5.0
         with:
-          target: 'http://api:4000/swagger/v1/swagger.json'
+          target: 'http://localhost:4000/swagger/v1/swagger.json'
           format: openapi
       
